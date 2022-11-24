@@ -21,7 +21,9 @@ export default function Jogo({ className }) {
 const StyledJogo = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 40px 50px 40px 38px;
+  margin: 40px 0px;
+  padding: 0 50px 0 38px;
+  width: 100%;
 
   & > div:first-child {
     display: flex;
@@ -30,7 +32,9 @@ const StyledJogo = styled.div`
 
   & > div:last-child {
     display: flex;
-    justify-content: flex-end;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
 
     margin: 30px 0;
   }

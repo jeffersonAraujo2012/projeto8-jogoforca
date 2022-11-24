@@ -5,7 +5,7 @@ function ImgForca({ className }) {
 }
 
 const StyledImgForca = styled.img`
-  width: 300px;
+  width: 280px;
 `;
 
 export default ImgForca;
