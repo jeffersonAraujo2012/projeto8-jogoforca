@@ -29,18 +29,12 @@ const StyledLetra = styled.button`
   }};
 `;
 
-function Letra({ className, letra }) {
-  const [habilitado, setHabilitado] = useState(true);
-
-  function handlerClickLetra() {
-    setHabilitado(false);
-  }
+function Letra({ className, letra, habilitado}) {
 
   return (
     <StyledLetra
       className={className}
       habilitado={habilitado}
-      onClick={handlerClickLetra}
     >
       {letra}
     </StyledLetra>
