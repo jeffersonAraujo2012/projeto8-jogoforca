@@ -1,11 +1,17 @@
+import { useState } from "react";
 import styled from "styled-components";
 
-function Chute({className}) {
+function Chute({ className, onClickBtnChutar }) {
+  const [palavraChute, setPalavraChute] = useState("");
   return (
     <StyledChute className={className}>
       <p>Já sei a palavra!</p>
-      <input type="text" />
-      <button>Chutar</button>
+      <input
+        type="text"
+        value={palavraChute}
+        onChange={(e) => setPalavraChute(e.target.value)}
+      />
+      <button onClick={() => onClickBtnChutar(palavraChute)}>Chutar</button>
     </StyledChute>
   );
 }
@@ -42,11 +48,13 @@ const StyledChute = styled.div`
     border: 1px solid #7aa7c7;
     border-radius: 3px;
 
-    color: #3C76A1;
+    color: #3c76a1;
     font-family: "Roboto", sans-serif;
     font-weight: 700;
     font-size: 16px;
     line-height: 19px;
+
+    cursor: pointer;
   }
 `;
 

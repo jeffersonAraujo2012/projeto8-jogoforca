@@ -22,10 +22,9 @@ function App() {
       } else {
         const novoNumErros = numErros + 1;
         if (novoNumErros >= 6) {
-          setNumErros(6)
+          setNumErros(6);
           console.log("JOGO ENCERRADO - VOCÊ PERDEU!");
-        }
-        else setNumErros(novoNumErros);
+        } else setNumErros(novoNumErros);
       }
     }
   }
@@ -36,6 +35,15 @@ function App() {
       const indexSorteado = Math.floor(Math.random() * tamanhoPalavras);
       setPalavra(palavras[indexSorteado]);
       setLetrasDesativadas("");
+    }
+  }
+
+  function handlerBtnChutar(palavraChute) {
+    if (palavraChute === palavra) {
+      console.log("Vitória");
+    } else {
+      console.log("Derrota");
+      setNumErros(6);
     }
   }
 
@@ -59,7 +67,7 @@ function App() {
           );
         })}
       </StyledLetras>
-      <Chute />
+      <Chute onClickBtnChutar={handlerBtnChutar}/>
     </>
   );
 }
