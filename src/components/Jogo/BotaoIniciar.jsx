@@ -2,7 +2,11 @@ import styled from "styled-components";
 
 function BotaoIniciar({ className, onClick }) {
   return (
-    <StyledBotaoIniciar className={className} onClick={onClick}>
+    <StyledBotaoIniciar
+      className={className}
+      onClick={onClick}
+      data-test="choose-word"
+    >
       Escolher Palavra
     </StyledBotaoIniciar>
   );

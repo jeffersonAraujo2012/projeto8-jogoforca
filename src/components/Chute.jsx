@@ -10,8 +10,14 @@ function Chute({ className, onClickBtnChutar }) {
         type="text"
         value={palavraChute}
         onChange={(e) => setPalavraChute(e.target.value)}
+        data-test="guess-input"
       />
-      <button onClick={() => onClickBtnChutar(palavraChute)}>Chutar</button>
+      <button
+        onClick={() => onClickBtnChutar(palavraChute)}
+        data-test="guess-button"
+      >
+        Chutar
+      </button>
     </StyledChute>
   );
 }

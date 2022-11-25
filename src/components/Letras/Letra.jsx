@@ -35,6 +35,7 @@ function Letra({ className, letra, habilitado, onClick}) {
       onClick={onClick}
       className={className}
       habilitado={habilitado}
+      data-test="letter"
     >
       {letra}
     </StyledLetra>

@@ -12,7 +12,12 @@ function PalavraJogo({ className, palavra, letrasDescobertas, gameStatus }) {
     return vetorPalavra;
   }
   return (
-    <StyledPalavraJogo className={className} gameStatus={gameStatus}>
+    <StyledPalavraJogo
+      className={className}
+      gameStatus={gameStatus}
+      data-test="word"
+      data-answer={palavra ? palavra : ""}
+    >
       {exibirPalavra().map((char) => char + " ")}
     </StyledPalavraJogo>
   );
