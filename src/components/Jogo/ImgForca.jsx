@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
-function ImgForca({ className }) {
-  return <StyledImgForca className={className} src="./assets/forca0.png" />;
+function ImgForca({ className, numErros }) {
+  return <StyledImgForca className={className} src={`./assets/forca${numErros}.png`} />;
 }
 
 const StyledImgForca = styled.img`

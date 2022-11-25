@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useState } from "react";
 
 const StyledLetra = styled.button`
   display: flex;
@@ -29,10 +28,11 @@ const StyledLetra = styled.button`
   }};
 `;
 
-function Letra({ className, letra, habilitado}) {
+function Letra({ className, letra, habilitado, onClick}) {
 
   return (
     <StyledLetra
+      onClick={onClick}
       className={className}
       habilitado={habilitado}
     >
