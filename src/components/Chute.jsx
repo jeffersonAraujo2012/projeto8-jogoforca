@@ -1,12 +1,13 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-function Chute({ className, onClickBtnChutar }) {
+function Chute({ className, onClickBtnChutar, gameStatus }) {
   const [palavraChute, setPalavraChute] = useState("");
   return (
     <StyledChute className={className}>
       <p>Já sei a palavra!</p>
       <input
+        disabled={gameStatus !== "EM ANDAMENTO" ? true : false}
         type="text"
         value={palavraChute}
         onChange={(e) => setPalavraChute(e.target.value)}

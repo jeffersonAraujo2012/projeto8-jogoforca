@@ -8,12 +8,19 @@ import "./general.css";
 import Jogo from "./components/Jogo";
 import Chute from "./components/Chute";
 
+/*const enumGameStatus = {
+  "VITORIA": 0,
+  "DERROTA": 1,
+  "EM ANDAMENTO": 2,
+  "AGUARDANDO INICIO": 3,
+}*/
+
 function App() {
   const [letrasDesativadas, setLetrasDesativadas] = useState(alfabeto);
   const [palavra, setPalavra] = useState("");
   const [letrasDescobertas, setLetrasDescobertas] = useState("");
   const [numErros, setNumErros] = useState(0);
-  const [gameStatus, setGameStatus] = useState("NEUTRO");
+  const [gameStatus, setGameStatus] = useState("AGUARDANDO INICIO");
 
   function ehVitoria(numLetrasDescobertas) {
     const vetorPalavraSemLetrasRepetidas = [...palavra].filter(
@@ -32,7 +39,7 @@ function App() {
       if (palavra.includes(letra)) {
         const novaLetrasDescobertas = letrasDescobertas + letra;
         setLetrasDescobertas(novaLetrasDescobertas);
-        if(ehVitoria(novaLetrasDescobertas.length)){
+        if (ehVitoria(novaLetrasDescobertas.length)) {
           encerrarJogo("VITORIA");
         }
       } else {
@@ -45,7 +52,8 @@ function App() {
   }
 
   function handlerBtnIniciar() {
-    if (!palavra || gameStatus !== "NEUTRO") {
+    if (gameStatus !== "EM ANDAMENTO") {
+      setGameStatus("EM ANDAMENTO");
       resetarJogo();
       const tamanhoPalavras = palavras.length;
       const indexSorteado = Math.floor(Math.random() * tamanhoPalavras);
@@ -55,15 +63,16 @@ function App() {
   }
 
   function handlerBtnChutar(palavraChute) {
-    if (palavraChute === palavra && gameStatus === "NEUTRO") {
-      encerrarJogo("VITORIA");
-    } else {
-      encerrarJogo("DERROTA");
+    if (gameStatus === "EM ANDAMENTO") {
+      if (palavraChute === palavra) {
+        encerrarJogo("VITORIA");
+      } else {
+        encerrarJogo("DERROTA");
+      }
     }
   }
 
   function resetarJogo() {
-    setGameStatus("NEUTRO");
     setLetrasDescobertas("");
     setNumErros(0);
   }
@@ -107,7 +116,7 @@ function App() {
           );
         })}
       </StyledLetras>
-      <Chute onClickBtnChutar={handlerBtnChutar} />
+      <Chute onClickBtnChutar={handlerBtnChutar} gameStatus={gameStatus} />
     </>
   );
 }
