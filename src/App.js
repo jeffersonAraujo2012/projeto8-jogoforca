@@ -13,24 +13,40 @@ function App() {
   const [palavra, setPalavra] = useState("");
   const [letrasDescobertas, setLetrasDescobertas] = useState("");
   const [numErros, setNumErros] = useState(0);
+  const [gameStatus, setGameStatus] = useState("NEUTRO");
+
+  function ehVitoria(numLetrasDescobertas) {
+    const vetorPalavraSemLetrasRepetidas = [...palavra].filter(
+      (letra, i) => palavra.indexOf(letra) === i
+    );
+    if (vetorPalavraSemLetrasRepetidas.length === numLetrasDescobertas) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   function handlerLetrasClick(letra) {
     if (!letrasDesativadas.includes(letra)) {
       setLetrasDesativadas(letrasDesativadas + letra);
       if (palavra.includes(letra)) {
-        setLetrasDescobertas(letrasDescobertas + letra);
+        const novaLetrasDescobertas = letrasDescobertas + letra;
+        setLetrasDescobertas(novaLetrasDescobertas);
+        if(ehVitoria(novaLetrasDescobertas.length)){
+          encerrarJogo("VITORIA");
+        }
       } else {
         const novoNumErros = numErros + 1;
         if (novoNumErros >= 6) {
-          setNumErros(6);
-          console.log("JOGO ENCERRADO - VOCÊ PERDEU!");
+          encerrarJogo("DERROTA");
         } else setNumErros(novoNumErros);
       }
     }
   }
 
   function handlerBtnIniciar() {
-    if (!palavra) {
+    if (!palavra || gameStatus !== "NEUTRO") {
+      resetarJogo();
       const tamanhoPalavras = palavras.length;
       const indexSorteado = Math.floor(Math.random() * tamanhoPalavras);
       setPalavra(palavras[indexSorteado]);
@@ -39,11 +55,34 @@ function App() {
   }
 
   function handlerBtnChutar(palavraChute) {
-    if (palavraChute === palavra) {
-      console.log("Vitória");
+    if (palavraChute === palavra && gameStatus === "NEUTRO") {
+      encerrarJogo("VITORIA");
     } else {
-      console.log("Derrota");
+      encerrarJogo("DERROTA");
+    }
+  }
+
+  function resetarJogo() {
+    setGameStatus("NEUTRO");
+    setLetrasDescobertas("");
+    setNumErros(0);
+  }
+
+  function encerrarJogo(status) {
+    status.toUpperCase();
+
+    if (status === "DERROTA" || status === "VITORIA") {
+      setLetrasDesativadas(alfabeto);
+      setLetrasDescobertas(palavra);
+    }
+
+    if (status === "DERROTA") {
+      setGameStatus("DERROTA");
       setNumErros(6);
+    } else if (status === "VITORIA") {
+      setGameStatus("VITORIA");
+    } else {
+      throw `Status de encerramento inválido. Esperava-se 'DERROTA' OU 'VITORIA', mas recebeu ${status}`;
     }
   }
 
@@ -54,6 +93,7 @@ function App() {
         onClickBtnIniciar={handlerBtnIniciar}
         letrasDescobertas={letrasDescobertas}
         numErros={numErros}
+        gameStatus={gameStatus}
       />
       <StyledLetras>
         {alfabeto.map((letra) => {
@@ -67,7 +107,7 @@ function App() {
           );
         })}
       </StyledLetras>
-      <Chute onClickBtnChutar={handlerBtnChutar}/>
+      <Chute onClickBtnChutar={handlerBtnChutar} />
     </>
   );
 }

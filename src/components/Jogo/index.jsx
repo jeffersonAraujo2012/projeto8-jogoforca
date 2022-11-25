@@ -10,15 +10,20 @@ export default function Jogo({
   onClickBtnIniciar,
   letrasDescobertas,
   numErros,
+  gameStatus,
 }) {
   return (
     <StyledJogo className={className}>
       <div>
-        <ImgForca numErros={numErros}/>
+        <ImgForca numErros={numErros} />
       </div>
       <div>
         <BotaoIniciar onClick={onClickBtnIniciar} />
-        <PalavraJogo palavra={palavra} letrasDescobertas={letrasDescobertas} />
+        <PalavraJogo
+          palavra={palavra}
+          letrasDescobertas={letrasDescobertas}
+          gameStatus={gameStatus}
+        />
       </div>
     </StyledJogo>
   );
