@@ -4,15 +4,15 @@ import ImgForca from "./ImgForca";
 import BotaoIniciar from "./BotaoIniciar";
 import PalavraJogo from "./PalavraJogo";
 
-export default function Jogo({ className }) {
+export default function Jogo({ className, palavra, onClickBtnIniciar, letrasDescobertas }) {
   return (
     <StyledJogo className={className}>
       <div>
         <ImgForca />
       </div>
       <div>
-        <BotaoIniciar />
-        <PalavraJogo />
+        <BotaoIniciar onClick={onClickBtnIniciar} />
+        <PalavraJogo palavra={palavra} letrasDescobertas={letrasDescobertas} />
       </div>
     </StyledJogo>
   );

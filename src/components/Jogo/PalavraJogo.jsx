@@ -1,9 +1,19 @@
 import styled from "styled-components";
 
-function PalavraJogo({className}) {
+function PalavraJogo({ className, palavra, letrasDescobertas }) {
+  function exibirPalavra() {
+    let vetorPalavra = [];
+    console.log(palavra);
+    if (palavra) {
+      vetorPalavra = [...palavra].map((letra) => {
+        return letrasDescobertas.includes(letra) ? letra : "_";
+      });
+    }
+    return vetorPalavra;
+  }
   return (
-    <StyledPalavraJogo className={className} >
-      _ _ _ _ _ _
+    <StyledPalavraJogo className={className}>
+      {exibirPalavra().map((char) => char + " ")}
     </StyledPalavraJogo>
   );
 }

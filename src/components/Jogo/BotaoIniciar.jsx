@@ -1,7 +1,11 @@
 import styled from "styled-components";
 
-function BotaoIniciar() {
-  return <StyledBotaoIniciar>Escolher Palavra</StyledBotaoIniciar>;
+function BotaoIniciar({ className, onClick }) {
+  return (
+    <StyledBotaoIniciar className={className} onClick={onClick}>
+      Escolher Palavra
+    </StyledBotaoIniciar>
+  );
 }
 
 const StyledBotaoIniciar = styled.button`
