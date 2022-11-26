@@ -8,19 +8,19 @@ import "./general.css";
 import Jogo from "./components/Jogo";
 import Chute from "./components/Chute";
 
-/*const enumGameStatus = {
-  "VITORIA": 0,
-  "DERROTA": 1,
-  "EM ANDAMENTO": 2,
-  "AGUARDANDO INICIO": 3,
-}*/
+const enumGameStatus = {
+  "VITORIA": "VITORIA",
+  "DERROTA": "DERROTA",
+  "EM_ANDAMENTO": "EM ANDAMENTO",
+  "AGUARDANDO_INICIO": "AGUARDANDO INICIO",
+}
 
 function App() {
   const [letrasDesativadas, setLetrasDesativadas] = useState(alfabeto);
   const [palavra, setPalavra] = useState("");
   const [letrasDescobertas, setLetrasDescobertas] = useState("");
   const [numErros, setNumErros] = useState(0);
-  const [gameStatus, setGameStatus] = useState("AGUARDANDO INICIO");
+  const [gameStatus, setGameStatus] = useState(enumGameStatus.AGUARDANDO_INICIO);
 
   function ehVitoria(numLetrasDescobertas) {
     const vetorPalavraSemLetrasRepetidas = [...palavra].filter(
@@ -40,20 +40,20 @@ function App() {
         const novaLetrasDescobertas = letrasDescobertas + letra;
         setLetrasDescobertas(novaLetrasDescobertas);
         if (ehVitoria(novaLetrasDescobertas.length)) {
-          encerrarJogo("VITORIA");
+          encerrarJogo(enumGameStatus.VITORIA);
         }
       } else {
         const novoNumErros = numErros + 1;
         if (novoNumErros >= 6) {
-          encerrarJogo("DERROTA");
+          encerrarJogo(enumGameStatus.DERROTA);
         } else setNumErros(novoNumErros);
       }
     }
   }
 
   function handlerBtnIniciar() {
-    if (gameStatus !== "EM ANDAMENTO") {
-      setGameStatus("EM ANDAMENTO");
+    if (gameStatus !== enumGameStatus.EM_ANDAMENTO) {
+      setGameStatus(enumGameStatus.EM_ANDAMENTO);
       resetarJogo();
       const tamanhoPalavras = palavras.length;
       const indexSorteado = Math.floor(Math.random() * tamanhoPalavras);
@@ -63,11 +63,11 @@ function App() {
   }
 
   function handlerBtnChutar(palavraChute) {
-    if (gameStatus === "EM ANDAMENTO") {
+    if (gameStatus === enumGameStatus.EM_ANDAMENTO) {
       if (palavraChute === palavra) {
-        encerrarJogo("VITORIA");
+        encerrarJogo(enumGameStatus.VITORIA);
       } else {
-        encerrarJogo("DERROTA");
+        encerrarJogo(enumGameStatus.DERROTA);
       }
     }
   }
@@ -80,16 +80,16 @@ function App() {
   function encerrarJogo(status) {
     status.toUpperCase();
 
-    if (status === "DERROTA" || status === "VITORIA") {
+    if (status === enumGameStatus.DERROTA || status === enumGameStatus.VITORIA) {
       setLetrasDesativadas(alfabeto);
       setLetrasDescobertas(palavra);
     }
 
-    if (status === "DERROTA") {
-      setGameStatus("DERROTA");
+    if (status === enumGameStatus.DERROTA) {
+      setGameStatus(enumGameStatus.DERROTA);
       setNumErros(6);
-    } else if (status === "VITORIA") {
-      setGameStatus("VITORIA");
+    } else if (status === enumGameStatus.VITORIA) {
+      setGameStatus(enumGameStatus.VITORIA);
     } else {
       throw `Status de encerramento inválido. Esperava-se 'DERROTA' OU 'VITORIA', mas recebeu ${status}`;
     }
