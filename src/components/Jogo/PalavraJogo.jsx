@@ -1,11 +1,15 @@
 import styled from "styled-components";
+import removeAcentoECedilha from "../../utils";
 
 function PalavraJogo({ className, palavra, letrasDescobertas, gameStatus }) {
   function exibirPalavra() {
     let vetorPalavra = [];
+    const palavraSemAcentos = removeAcentoECedilha(palavra);
+
     if (palavra) {
-      vetorPalavra = [...palavra].map((letra) => {
-        return letrasDescobertas.includes(letra) ? letra : "_";
+      
+      vetorPalavra = [...palavraSemAcentos].map((letra, index) => {
+        return letrasDescobertas.includes(letra) ? palavra[index] : "_";
       });
     }
     return vetorPalavra;

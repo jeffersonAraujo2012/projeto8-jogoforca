@@ -9,7 +9,7 @@ import forca5 from "../../assets/forca5.png";
 import forca6 from "../../assets/forca6.png";
 
 function ImgForca({ className, numErros }) {
-  const imgForca = [forca0, forca1, forca2, forca3,forca4, forca5, forca6];
+  const imgForca = [forca0, forca1, forca2, forca3, forca4, forca5, forca6];
   return (
     <StyledImgForca
       className={className}

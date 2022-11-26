@@ -7,20 +7,23 @@ import "./reset.css";
 import "./general.css";
 import Jogo from "./components/Jogo";
 import Chute from "./components/Chute";
+import removeAcentoECedilha from "./utils";
 
 const enumGameStatus = {
-  "VITORIA": "VITORIA",
-  "DERROTA": "DERROTA",
-  "EM_ANDAMENTO": "EM ANDAMENTO",
-  "AGUARDANDO_INICIO": "AGUARDANDO INICIO",
-}
+  VITORIA: "VITORIA",
+  DERROTA: "DERROTA",
+  EM_ANDAMENTO: "EM ANDAMENTO",
+  AGUARDANDO_INICIO: "AGUARDANDO INICIO",
+};
 
 function App() {
   const [letrasDesativadas, setLetrasDesativadas] = useState(alfabeto);
   const [palavra, setPalavra] = useState("");
   const [letrasDescobertas, setLetrasDescobertas] = useState("");
   const [numErros, setNumErros] = useState(0);
-  const [gameStatus, setGameStatus] = useState(enumGameStatus.AGUARDANDO_INICIO);
+  const [gameStatus, setGameStatus] = useState(
+    enumGameStatus.AGUARDANDO_INICIO
+  );
 
   function ehVitoria(numLetrasDescobertas) {
     const vetorPalavraSemLetrasRepetidas = [...palavra].filter(
@@ -34,9 +37,11 @@ function App() {
   }
 
   function handlerLetrasClick(letra) {
+    const palavraSemAcentos = removeAcentoECedilha(palavra);
+
     if (!letrasDesativadas.includes(letra)) {
       setLetrasDesativadas(letrasDesativadas + letra);
-      if (palavra.includes(letra)) {
+      if (palavraSemAcentos.includes(letra)) {
         const novaLetrasDescobertas = letrasDescobertas + letra;
         setLetrasDescobertas(novaLetrasDescobertas);
         if (ehVitoria(novaLetrasDescobertas.length)) {
@@ -63,8 +68,10 @@ function App() {
   }
 
   function handlerBtnChutar(palavraChute) {
+    const palavraChuteSemAcentos = removeAcentoECedilha(palavraChute);
+    const palavraSemAcentos = removeAcentoECedilha(palavra);
     if (gameStatus === enumGameStatus.EM_ANDAMENTO) {
-      if (palavraChute === palavra) {
+      if (palavraChuteSemAcentos === palavraSemAcentos) {
         encerrarJogo(enumGameStatus.VITORIA);
       } else {
         encerrarJogo(enumGameStatus.DERROTA);
@@ -78,11 +85,15 @@ function App() {
   }
 
   function encerrarJogo(status) {
+    const palavraSemAcentos = removeAcentoECedilha(palavra);
     status.toUpperCase();
 
-    if (status === enumGameStatus.DERROTA || status === enumGameStatus.VITORIA) {
+    if (
+      status === enumGameStatus.DERROTA ||
+      status === enumGameStatus.VITORIA
+    ) {
       setLetrasDesativadas(alfabeto);
-      setLetrasDescobertas(palavra);
+      setLetrasDescobertas(palavraSemAcentos);
     }
 
     if (status === enumGameStatus.DERROTA) {
