@@ -57,14 +57,12 @@ function App() {
   }
 
   function handlerBtnIniciar() {
-    if (gameStatus !== enumGameStatus.EM_ANDAMENTO) {
-      setGameStatus(enumGameStatus.EM_ANDAMENTO);
-      resetarJogo();
-      const tamanhoPalavras = palavras.length;
-      const indexSorteado = Math.floor(Math.random() * tamanhoPalavras);
-      setPalavra(palavras[indexSorteado]);
-      setLetrasDesativadas("");
-    }
+    setGameStatus(enumGameStatus.EM_ANDAMENTO);
+    resetarJogo();
+    const tamanhoPalavras = palavras.length;
+    const indexSorteado = Math.floor(Math.random() * tamanhoPalavras);
+    setPalavra(palavras[indexSorteado]);
+    setLetrasDesativadas("");
   }
 
   function handlerBtnChutar(palavraChute) {
