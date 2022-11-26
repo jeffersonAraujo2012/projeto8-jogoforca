@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import StyledLetras from "./components/Letras";
+import Letras from "./components/Letras";
 import Letra from "./components/Letras/Letra";
 import { alfabeto, palavras } from "./palavras";
 import "./reset.css";
@@ -104,7 +104,7 @@ function App() {
         numErros={numErros}
         gameStatus={gameStatus}
       />
-      <StyledLetras>
+      <Letras>
         {alfabeto.map((letra) => {
           return (
             <Letra
@@ -115,7 +115,7 @@ function App() {
             />
           );
         })}
-      </StyledLetras>
+      </Letras>
       <Chute onClickBtnChutar={handlerBtnChutar} gameStatus={gameStatus} />
     </>
   );

@@ -2,17 +2,17 @@ import styled from "styled-components";
 
 function Letras({className, children}) {
   return(
-    <div className={className}>
+    <StyledLetras className={className}>
       {children}
-    </div>
+    </StyledLetras>
   );
 }
 
-const StyledLetras = styled(Letras)`
+const StyledLetras = styled.div`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
   max-width: 680px;
 `
 
-export default StyledLetras;
+export default Letras;
