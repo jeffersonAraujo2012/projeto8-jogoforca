@@ -3,7 +3,6 @@ import styled from "styled-components";
 function PalavraJogo({ className, palavra, letrasDescobertas, gameStatus }) {
   function exibirPalavra() {
     let vetorPalavra = [];
-    console.log(palavra);
     if (palavra) {
       vetorPalavra = [...palavra].map((letra) => {
         return letrasDescobertas.includes(letra) ? letra : "_";
@@ -25,7 +24,6 @@ function PalavraJogo({ className, palavra, letrasDescobertas, gameStatus }) {
 
 const StyledPalavraJogo = styled.div`
   color: ${(props) => {
-    console.log(props.gameStatus);
     if (props.gameStatus === "DERROTA") {
       return "red";
     }
